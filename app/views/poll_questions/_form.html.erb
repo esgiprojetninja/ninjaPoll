@@ -1,4 +1,4 @@
-<%= form_for(poll_question) do |f| %>
+<%= form_for @poll_question do |f| %>
   <% if poll_question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(poll_question.errors.count, "error") %> prohibited this poll_question from being saved:</h2>
@@ -11,12 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :text %>
-    <%= f.text_area :text %>
-  </div>
+  <form>
+    <div class="form-group">
+      <%= f.label :text %>
+      <%= f.text_area :text, class: "form-control" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+      <%= f.label :poll_id %>
+      <%= f.select(:poll_id, [], {}, {:class => "form-control"}) do %>
+        <% @polls.each do |p| %>
+          <%= content_tag(:option, p.name, value: p.id) %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Sauvegarder", class: "btn btn-success" %>
+    </div>
+  </form>
 <% end %>

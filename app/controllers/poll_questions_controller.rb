@@ -15,10 +15,12 @@ class PollQuestionsController < ApplicationController
   # GET /poll_questions/new
   def new
     @poll_question = PollQuestion.new
+    @polls = Poll.all
   end
 
   # GET /poll_questions/1/edit
   def edit
+    @polls = Poll.all
   end
 
   # POST /poll_questions
@@ -69,6 +71,6 @@ class PollQuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_question_params
-      params.require(:poll_question).permit(:text)
+      params.require(:poll_question).permit(:text, :poll_id)
     end
 end
