@@ -18,7 +18,16 @@
 <p><strong>Questions:</strong></p>
 <ul>
   <% @poll.poll_questions.each do |pq| %>
-    <li><%= pq.text %></li>
+    <li>
+      <%= pq.text %>
+      <ul>
+        <% pq.answers.group(:value).count.each do |key, count| %>
+          <li>
+            Nombre de réponse à <strong><%= key %></strong> : <%= count %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>
 
