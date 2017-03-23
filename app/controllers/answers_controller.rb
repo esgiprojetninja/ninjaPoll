@@ -64,6 +64,25 @@ class AnswersController < ApplicationController
     end
   end
 
+  # POST /answer/save-all
+  def save_all
+    saved = true
+    params.require(:question).tap do |whitelisted|
+      whitelisted.each do |id, value|
+        @answer = Answer.new({
+            poll_question_id: id,
+            value: value
+          })
+        if !@answer.save
+          saved = false
+        end
+      end
+    end
+    if saved
+      redirect_to(root_path)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_answer

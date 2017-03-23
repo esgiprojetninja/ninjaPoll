@@ -1,0 +1,12 @@
+<h1>Answering <%= @poll.name %></h1>
+
+<form method="post" action="<%= answer_poll_path %>">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <% @poll.poll_questions.each do |pq| %>
+    <div class="form-group">
+      <label for="question_<%= pq.id %>"><%= pq.text %></label>
+      <input type="number" name="question[<%= pq.id %>]" class="form-control">
+    </div>
+  <% end %>
+  <button type="submit" class="btn btn-success">Valider les réponses</button>
+</form>

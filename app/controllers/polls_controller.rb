@@ -1,5 +1,5 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: [:show, :edit, :update, :destroy]
+  before_action :set_poll, only: [:show, :edit, :update, :destroy, :answer]
 
   # GET /polls
   # GET /polls.json
@@ -59,6 +59,10 @@ class PollsController < ApplicationController
       format.html { redirect_to polls_url, notice: 'Poll was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /polls/1/answer
+  def answer
   end
 
   private
