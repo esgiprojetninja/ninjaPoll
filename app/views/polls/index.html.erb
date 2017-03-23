@@ -2,7 +2,7 @@
 
 <h1>Polls</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -18,9 +18,14 @@
         <td><%= poll.name %></td>
         <td><%= poll.pub_date %></td>
         <td><%= poll.description %></td>
-        <td><%= link_to 'Show', poll %></td>
-        <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
-        <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', poll, class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_poll_path(poll), class: "btn btn-warning btn-sm" %></td>
+        <td>
+          <%= link_to 'Destroy', poll, class: "btn btn-danger btn-sm",
+            method: :delete,
+            data: { confirm: 'Are you sure?' }
+          %>
+        </td>
       </tr>
     <% end %>
   </tbody>
