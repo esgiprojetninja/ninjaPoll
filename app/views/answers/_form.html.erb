@@ -1,0 +1,33 @@
+<%= form_for(answer) do |f| %>
+  <% if answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+
+      <ul>
+      <% answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <form>
+    <div class="form-group">
+      <%= f.label :value %>
+      <%= f.number_field :value, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :poll_question_id %>
+      <%= f.select(:poll_question_id, [], {}, {:class => "form-control"}) do %>
+        <% @poll_questions.each do |p| %>
+          <%= content_tag(:option, p.text, value: p.id) %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Sauvegarder", class: "btn btn-success" %>
+    </div>
+  </form>
+<% end %>
