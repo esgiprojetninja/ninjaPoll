@@ -15,5 +15,12 @@
   <%= @poll.description %>
 </p>
 
+<p><strong>Questions:</strong></p>
+<ul>
+  <% @poll.poll_questions.each do |pq| %>
+    <li><%= pq.text %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_poll_path(@poll) %> |
 <%= link_to 'Back', polls_path %>
