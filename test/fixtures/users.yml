@@ -1,1 +1,4 @@
-# empty
+one:
+    id: 1
+    name: "toto"
+    email: "roland.kuku@gmail.com"

@@ -57,3 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # simple form
 gem 'simple_form'
+
+# Colorize
+gem 'colorize'
