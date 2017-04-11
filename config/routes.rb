@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'session/new'
+
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :answers
   resources :poll_questions
@@ -10,4 +12,7 @@ Rails.application.routes.draw do
   # User
   resources :users
   get 'signup', to: 'users#new', as: :signup
+  get 'login', to: 'session#new'
+  post 'login', to: 'session#create'
+  get 'logout', to: 'session#destroy'
 end
