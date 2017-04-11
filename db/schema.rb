@@ -29,11 +29,12 @@ ActiveRecord::Schema.define(version: 20170324170600) do
   end
 
   create_table "polls", force: :cascade do |t|
+    t.boolean  "active",      default: true
     t.string   "name"
     t.datetime "pub_date"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|
