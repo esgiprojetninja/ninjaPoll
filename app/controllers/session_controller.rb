@@ -5,7 +5,8 @@ class SessionController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      #log in and create session
+      log_in user
+      redirect_to user
     else
       # Create error message
       flash.now[:danger] = "Combinaison login/mdp incorrecte"
