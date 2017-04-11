@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170411141044) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "active",      default: true
+    t.boolean  "active",  default: true
   end
 
   create_table "users", force: :cascade do |t|
