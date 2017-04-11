@@ -8,7 +8,7 @@ class SessionController < ApplicationController
       #log in and create session
     else
       # Create error message
-      flash[:danger] = "Combinaison login/mdp incorrecte"
+      flash.now[:danger] = "Combinaison login/mdp incorrecte"
       render "new"
     end
   end

@@ -60,3 +60,6 @@ gem 'simple_form'
 
 # Colorize
 gem 'colorize'
+
+# tests
+gem 'rails-controller-testing'
