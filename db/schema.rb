@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324170600) do
+ActiveRecord::Schema.define(version: 20170411141044) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "value"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20170324170600) do
   end
 
   create_table "polls", force: :cascade do |t|
-    t.boolean  "active",      default: true
     t.string   "name"
     t.datetime "pub_date"
     t.text     "description"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.boolean  "active",      default: true
   end
 
   create_table "users", force: :cascade do |t|
