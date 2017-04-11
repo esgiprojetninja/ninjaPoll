@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411141044) do
+ActiveRecord::Schema.define(version: 20170411142845) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "value"
     t.integer  "poll_question_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "type"
     t.index ["poll_question_id"], name: "index_answers_on_poll_question_id"
   end
 
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170411141044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "poll_id"
+    t.integer  "type"
     t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
   end
 

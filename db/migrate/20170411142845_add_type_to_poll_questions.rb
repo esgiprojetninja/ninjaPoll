@@ -1,5 +1,5 @@
 class AddTypeToPollQuestions < ActiveRecord::Migration[5.0]
   def change
-    add_column :answers, :type, :integer
+    add_column :poll_questions, :type, :integer
   end
 end
