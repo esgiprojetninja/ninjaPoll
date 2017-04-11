@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20170411141044) do
     t.string   "name"
     t.datetime "pub_date"
     t.text     "description"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.boolean  "active",      default: true
   end
 
