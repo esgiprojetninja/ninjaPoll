@@ -5,6 +5,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Activer</th>
       <th>Name</th>
       <th>Pub date</th>
       <th>Description</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @polls.each do |poll| %>
       <tr>
+        <td><%= check_box_tag "yes", 'yes', id:"yes" %></td>
         <td><%= poll.name %></td>
         <td><%= poll.pub_date %></td>
         <td><%= poll.description %></td>
