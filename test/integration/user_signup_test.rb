@@ -2,6 +2,11 @@ require 'test_helper'
 
 class UserSignupTest < ActionDispatch::IntegrationTest
 
+  def setup
+    @user = users(:michael)
+    post login_path, params: { session: { email: @user.email, password: "password"}}
+  end
+
   test "invalid signup information" do
     get signup_path
     assert_no_difference "User.count" do
@@ -21,11 +26,9 @@ class UserSignupTest < ActionDispatch::IntegrationTest
           name: "Denis Richie",
           email: "awesome@me.io",
           password: "Password",
-          password_confirmation: "Password"
+          password_confirmation: "Password",
+          is_admin: false
         }}
     end
-    follow_redirect!
-    assert_template 'users/show'
-    assert is_logged_in?
   end
 end
