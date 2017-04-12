@@ -20,14 +20,16 @@
         <td><%= poll.name %></td>
         <td><%= poll.pub_date %></td>
         <td><%= poll.description %></td>
-        <td><%= link_to 'Show', poll, class: "btn btn-primary btn-sm" %></td>
-        <td><%= link_to 'Edit', edit_poll_path(poll), class: "btn btn-warning btn-sm" %></td>
-        <td>
-          <%= link_to 'Destroy', poll, class: "btn btn-danger btn-sm",
-            method: :delete,
-            data: { confirm: 'Are you sure?' }
-          %>
-        </td>
+        <% if !is_admin? %>
+          <td><%= link_to 'Show', poll, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Edit', edit_poll_path(poll), class: "btn btn-warning btn-sm" %></td>
+          <td>
+            <%= link_to 'Destroy', poll, class: "btn btn-danger btn-sm",
+              method: :delete,
+              data: { confirm: 'Are you sure?' }
+            %>
+          </td>
+        <% end %>
         <td>
           <%= link_to 'Answer', poll_answer_url(poll), class: "btn btn-success btn-sm" %>
         </td>

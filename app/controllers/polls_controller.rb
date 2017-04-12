@@ -1,5 +1,6 @@
 class PollsController < ApplicationController
   before_action :set_poll, only: [:show, :edit, :update, :destroy, :answer]
+  before_action :redirect_if_not_admin, :except => [:index, :answer]
 
   # GET /polls
   # GET /polls.json
