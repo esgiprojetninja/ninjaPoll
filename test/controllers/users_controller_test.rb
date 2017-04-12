@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = users(:michael)
   end
 
   test "should get index" do
@@ -24,7 +24,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             password_confirmation: "FakePWD"
          } }
     end
-
     assert_redirected_to user_url(User.last)
   end
 
@@ -45,4 +44,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to users_url
   end
+
 end
