@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_admin
+  before_action :redirect_if_not_admin, except: [:save_all]
 
   # GET /answers
   # GET /answers.json
