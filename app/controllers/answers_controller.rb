@@ -68,10 +68,12 @@ class AnswersController < ApplicationController
   # POST /answer/save-all
   def save_all
     saved = true
+    poll_id = params.require(:poll_id)
     params.require(:question).tap do |whitelisted|
       whitelisted.each do |id, value|
         @answer = Answer.new({
             poll_question_id: id,
+            poll_id: poll_id,
             value: value
           })
         if !@answer.save
@@ -92,6 +94,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:value, :poll_question_id)
+      params.require(:answer).permit(:value, :poll_question_id, :poll_id)
     end
 end

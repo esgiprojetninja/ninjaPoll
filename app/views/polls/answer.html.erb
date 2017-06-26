@@ -2,6 +2,7 @@
 
 <form method="post" action="<%= answer_poll_path %>">
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input name="poll_id" value="<%= @poll.id %>" type="hidden">
   <% @poll.poll_questions.each do |pq| %>
     <div class="form-group">
       <label for="question_<%= pq.id %>"><%= pq.text %></label>

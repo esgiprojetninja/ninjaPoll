@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Value</th>
+      <th>Poll</th>
       <th>Poll question</th>
       <th colspan="3"></th>
     </tr>
@@ -15,6 +16,7 @@
     <% @answers.each do |answer| %>
       <tr>
         <td><%= answer.value %></td>
+        <td><% if answer.poll %><%= answer.poll.name %><% end %></td>
         <td><%= answer.poll_question.text %></td>
         <td><%= link_to 'Show', answer, class: "btn btn-primary btn-sm" %></td>
         <td><%= link_to 'Edit', edit_answer_path(answer), class: "btn btn-warning btn-sm" %></td>
