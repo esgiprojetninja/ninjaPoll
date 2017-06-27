@@ -2,7 +2,11 @@
 
 <p>
   <strong>Value:</strong>
-  <%= @answer.value %>
+  <% if @answer.poll_question.text? %>
+    <%= @answer.text_value %>
+  <% else %>
+    <%= @answer.int_value %>
+  <% end %>
 </p>
 
 <p>

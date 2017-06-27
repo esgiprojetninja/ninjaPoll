@@ -69,17 +69,33 @@ class AnswersController < ApplicationController
   def save_all
     saved = true
     poll_id = params.require(:poll_id)
-    params.require(:question).tap do |whitelisted|
-      whitelisted.each do |id, value|
-        @answer = Answer.new({
-            poll_question_id: id,
-            poll_id: poll_id,
-            value: value
-          })
-        if !@answer.save
-          saved = false
+    answers = []
+    params.require(:text_value).tap do |whitelisted|
+        whitelisted.each do |id, value|
+            answers.push({
+                    text_value: value,
+                    poll_question_id: id
+            })
         end
-      end
+    end
+    params.require(:int_value).tap do |whitelisted|
+        whitelisted.each do |id, value|
+            answers.push({
+                    int_value: value,
+                    poll_question_id: id
+            })
+        end
+    end
+    answers.each do |a|
+        @answer = Answer.new({
+            poll_question_id: a[:poll_question_id],
+            poll_id: poll_id,
+            text_value: a.key?(:text_value) ? a[:text_value] : "",
+            int_value: a.key?(:int_value) ? a[:int_value] : 0
+        })
+        if !@answer.save
+            saved = false
+        end
     end
     if saved
       redirect_to(root_path)
