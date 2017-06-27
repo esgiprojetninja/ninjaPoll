@@ -2,7 +2,6 @@ module SessionHelper
   def log_in(user)
     session[:user_id] = user.id
     session[:is_admin] = user.admin
-    @user = user
   end
 
   def log_out
