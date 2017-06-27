@@ -1,3 +1,3 @@
 class Poll < ApplicationRecord
-    has_many :poll_questions, dependent: :destroy
+    has_and_belongs_to_many :poll_questions
 end

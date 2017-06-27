@@ -5,10 +5,16 @@
   <%= @poll_question.text %>
 </p>
 
-<p>
-<strong>Poll:</strong>
-  <%= @poll_question.poll.name %>
-</p>
+<div>
+<p><strong>Polls:</strong></p>
+  <ul>
+    <% @poll_question.polls.each do |poll| %>
+      <li>
+        <%= poll.name %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <%= link_to 'Edit', edit_poll_question_path(@poll_question) %> |
 <%= link_to 'Back', poll_questions_path %>
