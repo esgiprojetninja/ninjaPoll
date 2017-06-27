@@ -93,9 +93,7 @@ class AnswersController < ApplicationController
             text_value: a.key?(:text_value) ? a[:text_value] : "",
             int_value: a.key?(:int_value) ? a[:int_value] : 0
         })
-        if !@answer.save
-            saved = false
-        end
+        saved = @answer.save
     end
     if saved
       redirect_to(root_path)
