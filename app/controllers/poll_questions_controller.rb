@@ -48,6 +48,7 @@ class PollQuestionsController < ApplicationController
         format.html { redirect_to @poll_question, notice: 'Poll question was successfully updated.' }
         format.json { render :show, status: :ok, location: @poll_question }
       else
+        @polls = Poll.all
         format.html { render :edit }
         format.json { render json: @poll_question.errors, status: :unprocessable_entity }
       end
@@ -72,6 +73,6 @@ class PollQuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_question_params
-      params.require(:poll_question).permit(:text, :poll_ids => [])
+      params.require(:poll_question).permit(:text, :question_type, :poll_ids => [])
     end
 end

@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Text</th>
+      <th>Type</th>
       <th>Polls</th>
       <th colspan="3"></th>
     </tr>
@@ -15,6 +16,7 @@
     <% @poll_questions.each do |poll_question| %>
       <tr>
         <td><%= poll_question.text %></td>
+        <td><%= poll_question.question_type %></td>
         <td>
           <% poll_question.polls.each do |poll| %>
             <%= poll.name %>

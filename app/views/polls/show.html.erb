@@ -26,7 +26,7 @@
     <li>
       <%= pq.text %>
       <ul>
-        <% pq.answers.group(:value).count.each do |key, count| %>
+        <% pq.answers.group(:int_value).count.each do |key, count| %>
           <li>
             Nombre de réponse à <strong><%= key %></strong> : <%= count %>
           </li>

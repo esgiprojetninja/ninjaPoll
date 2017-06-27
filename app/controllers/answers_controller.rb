@@ -68,16 +68,32 @@ class AnswersController < ApplicationController
   # POST /answer/save-all
   def save_all
     saved = true
-    params.require(:question).tap do |whitelisted|
-      whitelisted.each do |id, value|
-        @answer = Answer.new({
-            poll_question_id: id,
-            value: value
-          })
-        if !@answer.save
-          saved = false
+    poll_id = params.require(:poll_id)
+    answers = []
+    params.require(:text_value).tap do |whitelisted|
+        whitelisted.each do |id, value|
+            answers.push({
+                    text_value: value,
+                    poll_question_id: id
+            })
         end
-      end
+    end
+    params.require(:int_value).tap do |whitelisted|
+        whitelisted.each do |id, value|
+            answers.push({
+                    int_value: value,
+                    poll_question_id: id
+            })
+        end
+    end
+    answers.each do |a|
+        @answer = Answer.new({
+            poll_question_id: a[:poll_question_id],
+            poll_id: poll_id,
+            text_value: a.key?(:text_value) ? a[:text_value] : "",
+            int_value: a.key?(:int_value) ? a[:int_value] : 0
+        })
+        saved = @answer.save
     end
     if saved
       redirect_to(root_path)
@@ -92,6 +108,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:value, :poll_question_id)
+      params.require(:answer).permit(:value, :poll_question_id, :poll_id)
     end
 end

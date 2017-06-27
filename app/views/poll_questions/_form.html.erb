@@ -27,6 +27,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :question_type %>
+      <%= f.select(:question_type, PollQuestion.question_types.keys, {}, {:class => "form-control"}) %>
+    </div>
+
+    <div class="form-group">
       <%= f.submit "Sauvegarder", class: "btn btn-success" %>
     </div>
   </form>
