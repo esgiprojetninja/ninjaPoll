@@ -2,12 +2,26 @@
 
 <p>
   <strong>Value:</strong>
-  <%= @answer.value %>
+  <% if @answer.poll_question.text? %>
+    <%= @answer.text_value %>
+  <% else %>
+    <%= @answer.int_value %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Poll:</strong>
+  <% if @answer.poll %><%= @answer.poll.name %><% end %>
 </p>
 
 <p>
   <strong>Poll question:</strong>
   <%= @answer.poll_question.text %>
+</p>
+
+<p>
+  <strong>Poll question type:</strong>
+  <%= @answer.poll_question.question_type %>
 </p>
 
 <%= link_to 'Edit', edit_answer_path(@answer) %> |

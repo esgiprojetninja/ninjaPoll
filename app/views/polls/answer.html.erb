@@ -2,10 +2,24 @@
 
 <form method="post" action="<%= answer_poll_path %>">
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input name="poll_id" value="<%= @poll.id %>" type="hidden">
   <% @poll.poll_questions.each do |pq| %>
     <div class="form-group">
       <label for="question_<%= pq.id %>"><%= pq.text %></label>
-      <input type="number" name="question[<%= pq.id %>]" class="form-control">
+      <% if pq.text? %>
+        <textarea name="text_value[<%= pq.id %>]" class="form-control"></textarea>
+      <% elsif pq.range? %>
+        <% for i in 0..10 do %>
+          <div class="checkbox">
+            <label>
+              <input type="radio" name="int_value[<%= pq.id %>]" value="<%= i %>">
+              <%= i %>
+            </label>
+          </div>
+        <% end %>
+      <% else %>
+        <input type="number" name="int_value[<%= pq.id %>]" class="form-control">
+      <% end %>
     </div>
   <% end %>
   <button type="submit" class="btn btn-success">Valider les réponses</button>
