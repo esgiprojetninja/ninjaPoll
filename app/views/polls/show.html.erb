@@ -20,20 +20,108 @@
 </p>
 
 <p><strong>Questions:</strong></p>
-<ul>
-  <% @poll.poll_questions.each do |pq| %>
-    <li>
-      <%= pq.text %>
-      <ul>
-        <% pq.answers.group(:int_value).count.each do |key, count| %>
-          <li>
-            Nombre de réponse à <strong><%= key %></strong> : <%= count %>
-          </li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+<% @poll.poll_questions.each do |pq| %>
+  <div>
+    <h4><%= pq.text %></h4>
+    <div id="chart-<%= pq.id %>">question <%= pq.id %> placeholder</div>
+  </div>
+<% end %>
 
 <%= link_to 'Edit', edit_poll_path(@poll) %> |
 <%= link_to 'Back', polls_path %>
+
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+  var pollId = <%= @poll.id %>;
+  $(function () {
+
+
+    var poll = $.ajax({
+      method: "GET",
+      url: "/polls/" + pollId + ".json"
+    }).then(
+      function (data) {
+        console.log(data);
+        makeCharts(data.poll);
+      },
+      function (reason) {
+        console.warn(reason);
+      }
+    );
+
+
+    function makeCharts(poll) {
+      poll.poll_questions.forEach(function (pq) {
+        console.log(getSeries(pq.question_type, pq.answers));
+        Highcharts.chart("chart-" + pq.id, {
+          chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        title: {
+          text: 'Browser market shares January, 2015 to May, 2015'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: true
+          }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: getSeries(pq.question_type, pq.answers)
+          }]
+        })
+      });
+    }
+
+    function getCategories (pqType) {
+      if (pqType === "range") {
+        return [0, 1, 2, 3, 4, 5, 6, 7 ,8, 9, 10];
+      }
+      return null;
+    }
+
+    function getSeries(pqType, answers) {
+      switch (pqType) {
+        case "int":
+          return getIntSeries(answers);
+          break;
+        case "range":
+          return getIntSeries(answers);
+        default:
+          return [];
+      }
+    }
+
+    function getIntSeries(answers) {
+      series = [];
+      answers.forEach(function (a) {
+        var exist = false;
+        series.forEach(function(s) {
+          if(s.name == a.int_value) {
+            exist = true;
+            s.y++;
+          }
+        });
+        if (!exist) {
+          series.push({
+            name: a.int_value,
+            y: 1
+          });
+        }
+      });
+      return series;
+    }
+  });
+</script>
