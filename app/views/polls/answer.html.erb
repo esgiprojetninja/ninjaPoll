@@ -9,14 +9,16 @@
       <% if pq.text? %>
         <textarea name="text_value[<%= pq.id %>]" class="form-control"></textarea>
       <% elsif pq.range? %>
-        <% for i in 0..10 do %>
-          <div class="checkbox">
+        <div>
+          <% for i in 0..10 do %>
+          <div class="checkbox-inline">
             <label>
               <input type="radio" name="int_value[<%= pq.id %>]" value="<%= i %>">
               <%= i %>
             </label>
           </div>
-        <% end %>
+          <% end %>
+        </div>
       <% else %>
         <input type="number" name="int_value[<%= pq.id %>]" class="form-control">
       <% end %>
