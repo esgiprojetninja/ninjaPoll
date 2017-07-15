@@ -70,20 +70,24 @@ class AnswersController < ApplicationController
     saved = true
     poll_id = params.require(:poll_id)
     answers = []
-    params.require(:text_value).tap do |whitelisted|
-        whitelisted.each do |id, value|
-            answers.push({
-                    text_value: value,
-                    poll_question_id: id
-            })
+    if params.has_key?(:text_value)
+        params.require(:text_value).tap do |whitelisted|
+            whitelisted.each do |id, value|
+                answers.push({
+                        text_value: value,
+                        poll_question_id: id
+                })
+            end
         end
     end
-    params.require(:int_value).tap do |whitelisted|
-        whitelisted.each do |id, value|
-            answers.push({
-                    int_value: value,
-                    poll_question_id: id
-            })
+    if params.has_key?(:int_value)
+        params.require(:int_value).tap do |whitelisted|
+            whitelisted.each do |id, value|
+                answers.push({
+                        int_value: value,
+                        poll_question_id: id
+                })
+            end
         end
     end
     answers.each do |a|
