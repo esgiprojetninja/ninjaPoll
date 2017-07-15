@@ -22,8 +22,9 @@
 <p><strong>Questions:</strong></p>
 <% @poll.poll_questions.each do |pq| %>
   <div>
-    <h4><%= pq.text %></h4>
-    <div id="chart-<%= pq.id %>">question <%= pq.id %> placeholder</div>
+    <% if pq.question_type != "text" %>
+      <div id="chart-<%= pq.id %>">question <%= pq.id %> placeholder</div>
+    <% end %>
   </div>
 <% end %>
 
@@ -41,7 +42,6 @@
       url: "/polls/" + pollId + ".json"
     }).then(
       function (data) {
-        console.log(data);
         makeCharts(data.poll);
       },
       function (reason) {
@@ -52,36 +52,41 @@
 
     function makeCharts(poll) {
       poll.poll_questions.forEach(function (pq) {
-        console.log(getSeries(pq.question_type, pq.answers));
-        Highcharts.chart("chart-" + pq.id, {
-          chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
-        },
-        title: {
-          text: 'Browser market shares January, 2015 to May, 2015'
-        },
-        tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
+        if (pq.question_type !== "text") {
+          Highcharts.chart("chart-" + pq.id, {
+            chart: {
+              type: 'column'
+            },
+            title: {
+              text: pq.text
+            },
+            xAxis: {
+              type: 'category',
+              labels: {
+                style: {
+                  fontSize: '13px',
+                  fontFamily: 'Verdana, sans-serif'
+                }
+              }
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Number of votes'
+              }
+            },
+            legend: {
               enabled: false
             },
-            showInLegend: true
-          }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: getSeries(pq.question_type, pq.answers)
-          }]
-        })
+            tooltip: {
+              pointFormat: 'Number of votes : {point.y:f}'
+            },
+            series: [{
+              colorByPoint: true,
+              data: getSeries(pq.question_type, pq.answers)
+            }]
+          });
+        }
       });
     }
 
@@ -109,19 +114,21 @@
       answers.forEach(function (a) {
         var exist = false;
         series.forEach(function(s) {
-          if(s.name == a.int_value) {
+          if(s[0] == a.int_value) {
             exist = true;
-            s.y++;
+            s[1]++;
           }
         });
         if (!exist) {
-          series.push({
-            name: a.int_value,
-            y: 1
-          });
+          series.push([
+            a.int_value,
+            1
+          ]);
         }
       });
-      return series;
+      return series.sort(function(a, b) {
+        return a[0] > b[0];
+      });
     }
   });
 </script>
